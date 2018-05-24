@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Natalie</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+function makeShort() 
+{
+   var longUrl=document.getElementById("longurl").value;
+    var request = gapi.client.urlshortener.url.insert({
+    'resource': {
+      'longUrl': longUrl
+	}
+    });
+    request.execute(function(response) 
+	{
+		
+		if(response.id != null)
+		{
+			str ="<b>Long URL:</b>"+longUrl+"<br>";
+			str +="<b>Short URL:</b> <a href='"+response.id+"'>"+response.id+"</a><br>";
+			document.getElementById("output").innerHTML = str;
+		}
+		else
+		{
+			alert("error: creating short url");
+		}
+	
+    });
+ }
+function getShortInfo()
+{
+var shortUrl=document.getElementById("shorturl").value;
+
+    var request = gapi.client.urlshortener.url.get({
+      'shortUrl': shortUrl,
+	'projection':'FULL'
+    });
+    request.execute(function(response) 
+	{
+		
+		if(response.longUrl!= null)
+		{
+			str ="<b>Long URL:</b>"+response.longUrl+"<br>";
+			str +="<b>Create On:</b>"+response.created+"<br>";
+			document.getElementById("output").innerHTML = str;
+		}
+		else
+		{
+			alert("error: unable to get URL information");
+		}
+	
+    });
+
+}
+function load()
+{
+	gapi.client.setApiKey('AIzaSyA63fkTDWU_qM9KlU5ksPEIBv0nk615KEY'); 
+	gapi.client.load('urlshortener', 'v1',function(){});
+
+}
+window.onload = load;
+    </script>
+    <script src="https://apis.google.com/js/client.js"> </script>
+        </head>
+<body>
+shurt url:<input type="text" id="longurl" name="url" value="http://www.guercifzone.com" /> <br/>
+<input type="button" value="Create Short" onclick="makeShort();" /> <br/> <br/>
+inshurt url:<input type="text" id="shorturl" name="url" placeholder="shorting link from google " /> <br/>
+<input type="button" value="Get Short  URL Info" onclick="getShortInfo();" />
+<div id="output"></div>
+</body>
+</html>
