@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Natalie</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+	
+		<script type="text/javascript">
 function makeShort() 
 {
-   var longUrl=document.getElementById("longurl").value;
+   var longUrl=document.getElementsByClassName("longurl")[0].value;
     var request = gapi.client.urlshortener.url.insert({
     'resource': {
       'longUrl': longUrl
@@ -30,9 +30,10 @@ function makeShort()
 	
     });
  }
+
 function getShortInfo()
 {
-var shortUrl=document.getElementById("shorturl").value;
+var shortUrl=document.getElementsByClassName("shorturl")[0].value;
 
     var request = gapi.client.urlshortener.url.get({
       'shortUrl': shortUrl,
@@ -57,19 +58,37 @@ var shortUrl=document.getElementById("shorturl").value;
 }
 function load()
 {
-	gapi.client.setApiKey('AIzaSyA63fkTDWU_qM9KlU5ksPEIBv0nk615KEY'); 
+	gapi.client.setApiKey('AIzaSyA63fkTDWU_qM9KlU5ksPEIBv0nk615KEY'); //get your ownn Browser API KEY
 	gapi.client.load('urlshortener', 'v1',function(){});
 
 }
 window.onload = load;
-    </script>
-    <script src="https://apis.google.com/js/client.js"> </script>
-        </head>
+
+</script>
+<script src="https://apis.google.com/js/client.js"> </script>
+<style>
+	*{padding: 0px;margin: 0px;}
+	body{
+		background-image: url(https://wallpapercave.com/wp/YHlk56g.jpg);
+	}
+</style>
+</head>
+
 <body>
-shurt url:<input type="text" id="longurl" name="url" value="http://www.guercifzone.com" /> <br/>
-<input type="button" value="Create Short" onclick="makeShort();" /> <br/> <br/>
-inshurt url:<input type="text" id="shorturl" name="url" placeholder="shorting link from google " /> <br/>
-<input type="button" value="Get Short  URL Info" onclick="getShortInfo();" />
+<form>
+	<legend>A shorting link by <a href="http://www.guercifzone.com/2016/05/about-as.html">About sadik</a></legend>
+	 <label for="longurl">Short Url :</label>
+	 <input type="url" class="longurl" id="link" name="url" value="http://www.guercifzone.com" />
+	 <input type="button" value="Create Short" onclick="makeShort();" class="pure-button pure-button-primary" />
+	 <label for="shorturl">Url info :</label>
+	 <input type="url" class="shorturl" id="link" name="url" value="https://goo.gl/JcB79S" />
+	 <input type="button" value="Create Short" onclick="getShortInfo();" class="pure-button pure-button-primary" />
+
+</form>
+
 <div id="output"></div>
+
+
 </body>
+
 </html>
